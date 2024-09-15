@@ -5,17 +5,16 @@ $(document).ready(function() {
     var openedGifts = 0;
     var canOpenSurprise = false;
     var colores = [
-        '#FF5733', // Naranja
-        '#33FF57', // Verde lima
-        '#3366FF', // Azul
-        '#FF33E9', // Rosa brillante
-        '#33FFFF', // Cian claro
-        '#FF33B7', // Magenta
-        '#FFD700', // Oro
-        '#A020F0'  // Violeta
+        '#FF5733', 
+        '#33FF57', 
+        '#3366FF', 
+        '#FF33E9',
+        '#33FFFF', 
+        '#FF33B7', 
+        '#FFD700', 
+        '#A020F0'  
     ];
 
-    // Ocultar los elementos de regalos y el contador inicialmente
     $("#instructions, #rewardCounter, #collage, #rewardContainer").hide();
 
     flame.on({
@@ -33,17 +32,16 @@ $(document).ready(function() {
                 },
                 100
             );
-            launchMainConfetti(); // Lanza el confetti principal al apagar la vela
+            launchMainConfetti(); 
             
-            // Mostrar el collage y el contador después del confetti principal
+   
             setTimeout(function() {
                 $("#collage, #instructions, #rewardCounter").fadeIn();
-                $("#rewardContainer").fadeIn(); // Mostrar también el contenedor de regalos
-            }, 8000); // Ajustar el tiempo según la duración del confetti principal
+                $("#rewardContainer").fadeIn(); 
+            }, 8000); 
         }
     });
 
-    // Manejar el clic en cada regalo
     $(".gift").on("click", function() {
         var index = $(this).index();
         var isSurprise = $(this).hasClass("surprise");
@@ -64,7 +62,7 @@ $(document).ready(function() {
         var message = $(this).data("message");
         var image = $(this).data("image");
 
-        // Solo incrementar el contador si es un regalo nuevo y no el regalo sorpresa
+
         if (!isSurprise && index === openedGifts) {
             openedGifts++;
             updateRewardCounter();
@@ -74,26 +72,24 @@ $(document).ready(function() {
         $("#giftMessage").text(message);
         $("#giftImage").attr("src", image);
 
-        // Ocultar el collage, el enunciado y el contador, mostrar el detalle del regalo
+  
         $("#collage, #instructions, #rewardCounter").fadeOut(function() {
             $("#giftDetail").fadeIn();
-            launchGiftConfetti(); // Lanza el confetti al abrir un regalo
+            launchGiftConfetti(); 
 
-            // Habilitar el cuarto regalo si se abrieron los tres primeros regalos
+        
             if (openedGifts === 3) {
                 canOpenSurprise = true;
             }
         });
     });
 
-    // Manejar el clic en el botón "Regresar"
     $("#backToCollageButton").on("click", function() {
         $("#giftDetail").fadeOut(function() {
-            $("#collage, #instructions, #rewardCounter").fadeIn(); // Mostrar nuevamente el enunciado y el contador junto con el collage
+            $("#collage, #instructions, #rewardCounter").fadeIn(); 
         });
     });
 
-    // Actualizar el contador de regalos abiertos
     function updateRewardCounter() {
         if (openedGifts < 3) {
             $("#rewardCounter").text(openedGifts + "/3");
@@ -103,7 +99,7 @@ $(document).ready(function() {
     }
 
     function launchMainConfetti() {
-        var duration = 5000; // Duración del confetti principal al apagar la vela (5 segundos)
+        var duration = 5000; 
         var end = Date.now() + duration;
     
         (function frame() {
@@ -127,7 +123,7 @@ $(document).ready(function() {
     }
     
     function launchGiftConfetti() {
-        var duration = 1000; // Duración del confetti al abrir un regalo (2 segundos)
+        var duration = 1000; 
         var end = Date.now() + duration;
     
         (function frame() {
